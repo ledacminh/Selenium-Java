@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class WebDriveWait_P2 {
+public class WebDriveWait_P3 {
     WebDriver drive;
     WebDriverWait explicitWait;
 
@@ -28,15 +28,15 @@ public class WebDriveWait_P2 {
 
     @Test
     public void TC_01_findElement() {
-        //Tìm được 1 element
-        //Không tìm thấy Element nào
-        //Tìm thấy nhiều hơn 1 Element
-        drive.get("http://juliemr.github.io/protractor-demo/");
-        drive.findElement(By.xpath("//input[@ng-model='first']")).sendKeys("5");
-        drive.findElement(By.xpath("//input[@ng-model='second']")).sendKeys("6");
-        drive.findElement(By.xpath("//button[@ng-click='doAddition()']")).click();
-        Assert.assertTrue(drive.findElement(By.xpath("//h2[@class='ng-binding' and text()='11']")).isDisplayed());
-        Assert.assertEquals(drive.findElement(By.xpath("//h2[@class='ng-binding']")).getText(),"11");
+        drive.get("https://demos.telerik.com/aspnet-ajax/ajaxloadingpanel/functionality/explicit-show-hide/defaultcs.aspx");
+        explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@id='ctl00_ContentPlaceholder1_RadCalendar1_Top']")));
+        Assert.assertEquals(drive.findElement(By.xpath("//span[@id='ctl00_ContentPlaceholder1_Label1']")).getText(),"No Selected Dates to display.");
+        explicitWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//td[@title='Thursday, September 16, 2021']")));
+        drive.findElement(By.xpath("//td[@title='Thursday, September 16, 2021']")).click();
+        explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[not(@style='display:none;')]/div[@class='raDiv']")));
+        explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@id='ctl00_ContentPlaceholder1_Label1' and @class='label']")));
+        Assert.assertTrue(drive.findElement(By.xpath("//span[@id='ctl00_ContentPlaceholder1_Label1' and @class='label']")).isDisplayed());
+        Assert.assertEquals(drive.findElement(By.xpath("//span[@id='ctl00_ContentPlaceholder1_Label1' and @class='label']")).getText(), "Thursday, September 16, 2021");
 
     }
 
